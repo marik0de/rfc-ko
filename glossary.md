@@ -34,7 +34,7 @@ RFC 2119에서 같은 단계로 묶인 키워드(예: SHOULD와 RECOMMENDED)는 
 
 ### BCP 14 고정 문구
 
-대부분의 RFC가 앞부분(용어 절)에 넣는 문구입니다. 번역할 때 아래 번역을 그대로 씁니다. 출처는 RFC 8174 번역 2절입니다.
+대부분의 RFC가 앞부분(용어 절)에 넣는 문구입니다. 번역할 때 아래 번역을 그대로 씁니다. 출처는 [RFC 8174 번역](translated/rfc8174.md) 2절입니다.
 
 > 원문: The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all capitals, as shown here.
 >
