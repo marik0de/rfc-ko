@@ -32,6 +32,8 @@ RFC 2119에서 같은 단계로 묶인 키워드(예: SHOULD와 RECOMMENDED)는 
 
 소문자 must, should, may는 규범 키워드가 아니므로 일반 서술로 번역합니다.
 
+소문자 can과 could는 기본적으로 "\~할 수 있다"로 옮깁니다. 행위자가 주어이고 could나 might가 예시나 추측을 나타낼 때만 "\~할 수도 있다"로 씁니다. "\~할 수 있다"로 쓰면 명세가 그 행동을 허용한다는 뜻으로 읽히기 때문입니다. 예: "For example, an origin could indicate …" → "예를 들어 출처는 … 나타낼 수도 있다". 일이 주어인 가능성은 "\~할 수 있다"로 씁니다. 예: "this could lead to disagreement" → "판단이 어긋날 수 있다".
+
 ### BCP 14 고정 문구
 
 대부분의 RFC가 앞부분(용어 절)에 넣는 문구입니다. 번역할 때 아래 번역을 그대로 씁니다. 출처는 [RFC 8174 번역](translated/rfc8174.md) 2절입니다.
@@ -451,6 +453,10 @@ RFC 8174 이전 문서처럼 문구가 다르면(예: "described in RFC 2119"로
 | HTTP/2 Error Code | HTTP/2 오류 코드 | 원문은 "the … registry"라서 "HTTP/2 오류 코드" 레지스트리 | RFC 9113 |
 | HTTP/2 Frame Type | HTTP/2 프레임 유형 | 원문은 "the … registry"라서 "HTTP/2 프레임 유형" 레지스트리 | RFC 9113 |
 | HTTP/2 Settings | HTTP/2 설정 | 원문은 "the … registry"라서 "HTTP/2 설정" 레지스트리 | RFC 9113 |
+| HTTP/3 Error Codes | HTTP/3 오류 코드 | 원문은 "the … registry"라서 "HTTP/3 오류 코드" 레지스트리 | RFC 9114 |
+| HTTP/3 Frame Types | HTTP/3 프레임 유형 | 원문은 "the … registry"라서 "HTTP/3 프레임 유형" 레지스트리 | RFC 9114 |
+| HTTP/3 Settings | HTTP/3 설정 | 원문은 "the … registry"라서 "HTTP/3 설정" 레지스트리 | RFC 9114 |
+| HTTP/3 Stream Types | HTTP/3 스트림 유형 | 원문은 "the … registry"라서 "HTTP/3 스트림 유형" 레지스트리 | RFC 9114 |
 | Hypertext Transfer Protocol (HTTP) Authentication Scheme Registry | HTTP 인증 스킴 레지스트리 | | RFC 9110 |
 | Hypertext Transfer Protocol (HTTP) Field Name Registry | HTTP 필드 이름 레지스트리 | | 공통 |
 | Hypertext Transfer Protocol (HTTP) Method Registry | HTTP 메서드 레지스트리 | | RFC 9110 |
@@ -460,7 +466,7 @@ RFC 8174 이전 문서처럼 문구가 다르면(예: "described in RFC 2119"로
 | Permanent Message Header Field Names | 영구 메시지 헤더 필드 이름 | 상태 값 'permanent'는 원어 | RFC 9110 |
 | Provisional Message Header Field Names | 임시 메시지 헤더 필드 이름 | 상태 값 'provisional'은 원어 | RFC 9110 |
 | Service Name and Transport Protocol Port Number Registry | 서비스 이름 및 전송 프로토콜 포트 번호 레지스트리 | | RFC 9110 |
-| TLS Application-Layer Protocol Negotiation (ALPN) Protocol IDs | TLS ALPN 프로토콜 ID | | RFC 9112 |
+| TLS Application-Layer Protocol Negotiation (ALPN) Protocol IDs | TLS ALPN 프로토콜 ID | | 공통 |
 | Uniform Resource Identifier (URI) Schemes | URI 스킴 | | RFC 9110 |
 
 ## HTTP/2
@@ -563,6 +569,49 @@ RFC 9113 5.1절의 상태 전이 다이어그램은 번역하지 않으므로, �
 
 > 예: 엔드포인트가 `END_STREAM` 플래그를 보내면 스트림 상태가 `half-closed (로컬)`이 되고, 받으면 `half-closed (원격)`이 된다.
 
+## HTTP/3
+
+| 원어 | 번역어 | 비고 | 출처 |
+|---|---|---|---|
+| 0-RTT / 1-RTT | 0-RTT / 1-RTT | QUIC 핸드셰이크 방식 이름이라 원어(6.2.1·7.2.4.2절) | RFC 9114 |
+| abort | 중단 | 연결이나 스트림이 갑자기 끝나는 것(2.2절 정의 용어). "abort reading"은 읽기를 중단하다. TTA: 중단(용어사전), 포기(TTA 표준 TTAS.KO-11.0019). 정보통신기술용어해설 없음 | RFC 9114 |
+| anti-replay | 재전송 방지 | replay attack(재전송 공격) 참고(10.9절) | RFC 9114 |
+| application error code | 애플리케이션 오류 코드 | QUIC CONNECTION_CLOSE 프레임의 오류 코드(5.3절) | RFC 9114 |
+| bidirectional / unidirectional stream | 양방향 / 단방향 스트림 | QUIC 스트림 종류(2.2절). TTA 표준(TTAK.KO-07.0060/R1): 양방향, 단방향. 정보통신기술용어해설 없음 | RFC 9114 |
+| bytestream | 바이트 스트림 | 2.2절 stream 정의 | RFC 9114 |
+| configuration parameter | 구성 매개 변수 | SETTINGS 프레임이 전달하는 것(7.2.4절). configuration(구성) 참고 | RFC 9114 |
+| configuration | 구성 | 전송 구성, TLS 구성(3.3절). setting(설정)과 구분. rfc9113.md 9.1절과 같음 | RFC 9114 |
+| congestion control | 혼잡 제어 | 1.1절. 정보통신기술용어해설: 혼잡 제어(no=926). TTA: 정체 제어 | RFC 9114 |
+| connection shutdown | 연결 종료 절차 | 5.2절 제목. 5장 제목 Connection Closure(연결 종료)와 겹치지 않게 함. 본문의 graceful shutdown은 우아한 종료 | RFC 9114 |
+| control stream | 제어 스트림 | 연결 전체에 적용되는 프레임을 전달하는 단방향 스트림(2장, 6.2.1절) | RFC 9114 |
+| credit (flow-control) | 크레딧 | 흐름 제어 크레딧. 용어집 HTTP/2 표 credit와 같음(6.2절) | RFC 9114 |
+| datagram | 데이터그램 | UDP 데이터그램(7.2.4.2절). 두 사전 같음(정보통신기술용어해설 no=634) | RFC 9114 |
+| expert reviewer | 전문가 검토자 | IANA 등록을 검토하는 전문가(11.2.1절). designated expert(지정 전문가) 참고 | RFC 9114 |
+| framing layer | 프레임 계층 | rfc9113.md와 같게 "프레이밍 계층"으로 쓰지 않음. binary framing은 이진 프레이밍 | RFC 9114 |
+| graceful shutdown | 우아한 종료 | 용어집 HTTP/2 표와 같음(5.2절). 5.2절 첫 등장은 graceful connection close(우아한 연결 종료)로 병기 | RFC 9114 |
+| HTTP/3 connection | HTTP/3 연결 | 협상된 애플리케이션 프로토콜이 HTTP/3인 QUIC 연결(2.2절 정의 용어) | RFC 9114 |
+| idle timeout | 유휴 타임아웃 | QUIC 핸드셰이크에서 선언(5.1절) | RFC 9114 |
+| integrity | 무결성 | 1.2절. integrity check(무결성 검사)와 같은 말. 정보통신기술용어해설: 무결성(no=1229). TTA: 시스템 무결성 등 합성어만 | RFC 9114 |
+| loss recovery | 손실 복구 | TCP 손실 복구 메커니즘(1.1절). 두 사전 모두 없음. 번역자 결정(표기 유지) | RFC 9114 |
+| method-specific form | 메서드별 형식 | HTTP/1.1 요청 대상의 형식 중 메서드에 따라 정해지는 것(authority-form, asterisk-form)(4.3.1절) | RFC 9114 |
+| migration (connection) | 연결 이전 | QUIC 연결 중 클라이언트 주소가 바뀌는 것(10.10절). 두 사전 모두 이 뜻의 항목 없음(TTA 표준 TTAK.KO-10.0921의 커넥션 마이그레이션은 서버 간 위임이라는 다른 뜻). 번역자 결정(표기 유지) | RFC 9114 |
+| protocol element | 프로토콜 요소 | RFC 6365 정의. rfc9113.md와 같음(2.2절) | RFC 9114 |
+| push ID | 푸시 ID | 서버 푸시마다 할당하는 식별자(4.6절) | RFC 9114 |
+| push stream | 푸시 스트림 | 푸시된 응답을 나르는 서버 시작 단방향 스트림(6.2.2절) | RFC 9114 |
+| rejected / processed (request) | 거부된 / 처리된 (요청) | 4.1.1절의 따옴표 정의 | RFC 9114 |
+| request forgery | 요청 위조 | 10.2절. cross-site request forgery(사이트 간 요청 위조) 참고 | RFC 9114 |
+| request stream | 요청 스트림 | 클라이언트가 시작한 양방향 QUIC 스트림(4.1·6.1절) | RFC 9114 |
+| reset (stream) | 리셋하다 | 스트림의 송신 부분을 리셋(4.1.1절). rfc9113.md와 같음 | RFC 9114 |
+| resumption | 재개 | 번역자 결정. 원문은 단독 resumption("resumption information", 7.2.4.2절)이라 재개. session resumption은 세션 재개. 두 사전 모두 없음(session resumption으로 조회) | RFC 9114 |
+| revoke | 폐지하다 | 인증서 폐지(3.3절). obsolete(폐기)와 구분. 정보통신기술용어해설: 인증서 폐기, 인증서 폐지(no=3244). TTA: 폐기(TTA 표준 TTAK.IT-X.1252). obsolete(폐기)와 구분하려고 폐지를 고름 | RFC 9114 |
+| session ticket | 세션 티켓 | TLS 세션 티켓(7.2.4.2절). 두 사전 모두 없음. 번역자 결정(표기 유지) | RFC 9114 |
+| setting identifier / setting value | 설정 식별자 / 설정 값 | 7.2.4절 따옴표 정의 | RFC 9114 |
+| stream ID | 스트림 ID | push ID(푸시 ID)와 짝. rfc9113.md의 stream identifier(스트림 식별자)와 같은 것(5.2절) | RFC 9114 |
+| stream type | 스트림 유형 | 단방향 스트림 맨 앞의 가변 길이 정수(6.2절) | RFC 9114 |
+| traffic analysis | 트래픽 분석 | 10.5·10.7절. TTA: 트래픽 분석(용어사전). 정보통신기술용어해설: 해당 항목 없음(Traffic no=519만) | RFC 9114 |
+| transport parameter | 전송 매개 변수 | QUIC 전송 매개 변수(6.2절). 두 사전 모두 없음. 번역자 결정(표기 유지) | RFC 9114 |
+| variable-length integer encoding | 가변 길이 정수 인코딩 | [QUIC-TRANSPORT] 16장(2.2절) | RFC 9114 |
+
 ## 원어 그대로 두는 것
 
 번역하지 않고 코드 서식(`` ` ``)으로 표기합니다.
@@ -575,4 +624,4 @@ RFC 9113 5.1절의 상태 전이 다이어그램은 번역하지 않으므로, �
 - 스트림 상태: `idle`, `open`, `reserved (로컬/원격)`, `half-closed (로컬/원격)`, `closed` (괄호 안만 한국어)
 - HTTP 메서드, 헤더 필드 이름, 상태 코드 이름, ABNF 규칙 이름
 
-코드 서식 없이 원어로 두는 이름: TLS, ALPN, SNI(Server Name Indication), HPACK, QUIC. 처음 나올 때 원문의 풀어 쓴 이름이 있으면 그대로 둡니다.
+코드 서식 없이 원어로 두는 이름: TLS, ALPN, SNI(Server Name Indication), HPACK, QPACK, QUIC, TCP Fast Open. 처음 나올 때 원문의 풀어 쓴 이름이 있으면 그대로 둡니다.

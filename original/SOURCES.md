@@ -2,6 +2,7 @@
 
 | RFC | 형식 | 제목 | 받은 날짜 | URL |
 |---|---|---|---|---|
+| RFC 9114 | txt | HTTP/3 | 2026-10-24 | https://www.rfc-editor.org/rfc/rfc9114.txt |
 | RFC 9113 | txt | HTTP/2 | 2026-10-17 | https://www.rfc-editor.org/rfc/rfc9113.txt |
 | RFC 9112 | txt | HTTP/1.1 | 2026-10-17 | https://www.rfc-editor.org/rfc/rfc9112.txt |
 | RFC 9110 | txt | HTTP Semantics | 2026-10-17 | https://www.rfc-editor.org/rfc/rfc9110.txt |
