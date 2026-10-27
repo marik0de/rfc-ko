@@ -1,11 +1,12 @@
 # rfc-ko
 
-IETF RFC 문서의 한국어 번역입니다. HTTP 의미론(RFC 9110), HTTP/1.1(RFC 9112), HTTP/2(RFC 9113), HTTP/3(RFC 9114)와 요구 수준 키워드(BCP 14)를 옮겼습니다.
+IETF RFC 문서의 한국어 번역입니다. HTTP 의미론(RFC 9110), HTTP/1.1(RFC 9112), HTTP/2(RFC 9113), HTTP/3(RFC 9114), TLS 1.3(RFC 9846)과 요구 수준 키워드(BCP 14)를 옮겼습니다.
 
 ## 번역 목록
 
 | RFC | 제목 | 번역본 | 상태 |
 |---|---|---|---|
+| [9846](https://www.rfc-editor.org/rfc/rfc9846) | The Transport Layer Security (TLS) Protocol Version 1.3 | [rfc9846.md](translated/rfc9846.md) | 전체 초안. RFC 8446을 대체함 |
 | [9114](https://www.rfc-editor.org/rfc/rfc9114) | HTTP/3 | [rfc9114.md](translated/rfc9114.md) | 전체 초안 |
 | [9113](https://www.rfc-editor.org/rfc/rfc9113) | HTTP/2 | [rfc9113.md](translated/rfc9113.md) | 전체 초안 |
 | [9112](https://www.rfc-editor.org/rfc/rfc9112) | HTTP/1.1 | [rfc9112.md](translated/rfc9112.md) | 전체 초안. RFC 9931에서 일부 갱신됨 |
