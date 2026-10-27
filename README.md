@@ -2,6 +2,8 @@
 
 IETF RFC 문서의 한국어 번역입니다. HTTP 의미론(RFC 9110), HTTP/1.1(RFC 9112), HTTP/2(RFC 9113), HTTP/3(RFC 9114), TLS 1.3(RFC 9846)과 요구 수준 키워드(BCP 14)를 옮겼습니다.
 
+웹에서 읽기: <https://marik0de.github.io/rfc-ko/>
+
 ## 번역 목록
 
 | RFC | 제목 | 번역본 | 상태 |
