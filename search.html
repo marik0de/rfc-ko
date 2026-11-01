@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>번역 찾기 | rfc-ko</title>
+<meta name="description" content="영어 원문이나 한국어 번역 문구로 RFC 번역본을 찾아, 그 문장과 짝이 되는 원문·번역 문장을 함께 봅니다.">
+<style>
+  :root {
+    --fg: #1f2328; --muted: #59636e; --line: #d1d9e0; --soft: #f6f8fa; --accent: #0969da;
+    --hit: #fff1a8; --pair: #dafbe1; --sel: #ddf4ff;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 15px/1.6 -apple-system, "Segoe UI", "Noto Sans KR", "Malgun Gothic", sans-serif; color: var(--fg); }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  header { padding: 16px 24px 12px; border-bottom: 1px solid var(--line); }
+  .top { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 8px; }
+  .top h1 { margin: 0; font-size: 20px; }
+  .top nav { font-size: 14px; }
+  .bar { display: flex; gap: 8px; flex-wrap: wrap; }
+  .bar input[type=search] { flex: 1 1 360px; min-width: 0; font-size: 16px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 6px; }
+  .bar select { padding: 8px; border: 1px solid var(--line); border-radius: 6px; font-size: 14px; background: #fff; max-width: 100%; }
+  #mode { font-size: 13px; color: var(--muted); margin-top: 6px; min-height: 1.6em; }
+  main { display: grid; grid-template-columns: minmax(280px, 400px) 1fr; height: calc(100vh - 136px); }
+  #list { border-right: 1px solid var(--line); overflow-y: auto; }
+  #count { padding: 8px 16px; font-size: 13px; color: var(--muted); border-bottom: 1px solid var(--line); background: var(--soft); position: sticky; top: 0; }
+  .item { display: block; width: 100%; text-align: left; font: inherit; color: inherit; background: none; border: 0; border-bottom: 1px solid var(--line); padding: 10px 16px; cursor: pointer; }
+  .item:hover { background: var(--soft); }
+  .item[aria-current=true] { background: var(--sel); box-shadow: inset 3px 0 var(--accent); }
+  .where { font-size: 12px; color: var(--muted); }
+  .where b { color: var(--fg); }
+  .snip { font-size: 14px; margin-top: 2px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .badge { font-size: 11px; padding: 0 6px; border-radius: 10px; background: #ddf4ff; color: #0550ae; white-space: nowrap; margin-left: 4px; }
+  .badge.weak { background: #fff8c5; color: #7d4e00; }
+  .badge.note { background: #ffebe9; color: #a40e26; }
+  mark { background: var(--hit); color: inherit; border-radius: 2px; padding: 0 1px; }
+  #more { margin: 12px 16px; padding: 6px 12px; border: 1px solid var(--line); border-radius: 6px; background: #fff; cursor: pointer; }
+  #detail { padding: 20px 28px; overflow-y: auto; }
+  .empty { color: var(--muted); }
+  .empty ul { padding-left: 20px; }
+  .empty button { font: inherit; color: var(--accent); background: none; border: 0; padding: 0; cursor: pointer; }
+  .crumb { font-size: 13px; color: var(--muted); }
+  .crumb a { margin-left: 10px; }
+  h2 { font-size: 18px; margin: 4px 0 16px; }
+  h2 small { font-weight: 400; color: var(--muted); font-size: 14px; }
+  .warn { font-size: 13px; background: #fff8c5; border: 1px solid #eac54f; padding: 8px 12px; border-radius: 6px; margin-bottom: 14px; }
+  .pairbox { border: 1px solid var(--line); border-radius: 8px; overflow: hidden; margin-bottom: 18px; }
+  .side { padding: 12px 16px; }
+  .side + .side { border-top: 1px dashed var(--line); background: var(--soft); }
+  .label { font-size: 12px; font-weight: 600; color: var(--muted); margin-bottom: 4px; }
+  .text { font-size: 16px; overflow-wrap: anywhere; }
+  .ctx h3 { font-size: 14px; color: var(--muted); margin: 18px 0 8px; font-weight: 600; }
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; font-size: 14px; overflow-wrap: anywhere; }
+  .cols p { margin: 0; }
+  .on { background: var(--pair); border-radius: 2px; }
+  @media (max-width: 760px) {
+    header { padding: 12px 16px 10px; }
+    main { display: block; height: auto; }
+    #list { max-height: 45vh; border-right: 0; border-bottom: 1px solid var(--line); }
+    #detail { padding: 16px; }
+    .cols { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="top">
+    <h1>번역 찾기</h1>
+    <nav><a href="./">rfc-ko 처음으로</a></nav>
+  </div>
+  <div class="bar" role="search">
+    <input id="q" type="search" placeholder="예: most highly preferred protocol / 멱등 메서드" aria-label="찾을 문구" autocomplete="off" autofocus>
+    <select id="rfc" aria-label="RFC"><option value="">모든 RFC</option></select>
+    <select id="lang" aria-label="찾을 언어">
+      <option value="auto">언어 자동</option>
+      <option value="en">원문에서</option>
+      <option value="ko">번역본에서</option>
+    </select>
+  </div>
+  <div id="mode" aria-live="polite"></div>
+</header>
+<main>
+  <section id="list" aria-label="결과 목록"></section>
+  <section id="detail" aria-live="polite"></section>
+</main>
+<script>
+"use strict";
+const PAGE = 200;                 // 목록에 한 번에 보이는 결과 수
+const LEVELS = {
+  sentence: ["문장 짝", ""],
+  weak: ["약한 짝", "weak"],
+  para: ["문단", "weak"],
+  orphan: ["짝 없음", "note"],
+  note: ["역주", "note"],
+};
+const ORDER = Object.keys(LEVELS);
+const NAME = { en: "원문", ko: "번역" };
+const $ = id => document.getElementById(id);
+const esc = s => s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const reEsc = s => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+let INDEX = null, LOW = 1.2, hits = [], shown = 0, sel = -1, rx = null, lang = "en";
+
+// 찾는 말 → 정규식. 번역본은 글자 사이 띄어쓰기 차이를 무시하고, 원문은 공백 차이를 무시하며
+// 문구에 대문자가 있을 때만 대소문자를 가린다("MUST NOT"은 규범 키워드만, "must not"은 둘 다).
+function pattern(q, l) {
+  q = q.trim();
+  if (!q) return null;
+  if (l === "ko") return new RegExp([...q.replace(/\s+/g, "")].map(reEsc).join("\\s*"), "g");
+  return new RegExp(q.split(/\s+/).map(reEsc).join("\\s+"), /[A-Z]/.test(q) ? "g" : "gi");
+}
+function test(re, s) { re.lastIndex = 0; return re.test(s); }
+
+function hl(text, re) {
+  if (!re) return esc(text);
+  let out = "", last = 0, m;
+  re.lastIndex = 0;
+  while ((m = re.exec(text)) !== null) {
+    if (m[0] === "") { re.lastIndex++; continue; }
+    out += esc(text.slice(last, m.index)) + "<mark>" + esc(m[0]) + "</mark>";
+    last = m.index + m[0].length;
+  }
+  return out + esc(text.slice(last));
+}
+
+// 번역본 머리말 → GitHub Pages(kramdown GFM) 앵커. 소문자로, 글자·숫자·밑줄·하이픈·공백만 남기고 공백은 하이픈으로.
+function slug(head) {
+  return head.toLowerCase().replace(/`/g, "").replace(/[^\p{L}\p{N}_\- ]/gu, "").replace(/ /g, "-");
+}
+function secLabel(r) {
+  if (/^\d/.test(r.sec)) return r.sec + "절";
+  if (/^[A-Z]/.test(r.sec)) return "부록 " + r.sec;
+  return r.sec;
+}
+function linkEn(r) {
+  const base = `https://www.rfc-editor.org/rfc/rfc${r.rfc}`;
+  if (/^\d/.test(r.sec)) return `${base}#section-${r.sec}`;
+  if (/^[A-Z]/.test(r.sec)) return `${base}#appendix-${r.sec}`;
+  return base;
+}
+function linkKo(r) { return `translated/rfc${r.rfc}.html#${encodeURIComponent(slug(r.head))}`; }
+
+let fellBack = false;   // 자동 판별한 언어에서 못 찾아 다른 언어에서 찾았는지
+
+function search() {
+  const q = $("q").value;
+  const rfc = $("rfc").value;
+  syncUrl(q, rfc);
+  hits = []; sel = -1; shown = 0; fellBack = false;
+  const auto = $("lang").value === "auto";
+  lang = auto ? (/[가-힣]/.test(q) ? "ko" : "en") : $("lang").value;
+  if (!q.trim() || !INDEX) { rx = null; render(); return; }
+  hits = find(q, lang, rfc);
+  // 언어 자동일 때 한쪽에서 하나도 없으면 다른 쪽에서 찾는다(예: "(MUST)"는 한글이 없지만 번역본에 있다)
+  if (auto && !hits.length) {
+    const alt = lang === "ko" ? "en" : "ko", more = find(q, alt, rfc);
+    if (more.length) { hits = more; lang = alt; fellBack = true; }
+  }
+  rx = pattern(q, lang);
+  render();
+  if (hits.length === 1) pick(0);
+}
+
+function find(q, lang, rfc) {
+  const rx = pattern(q, lang), hits = [];
+  const other = lang === "ko" ? "en" : "ko";
+  for (const r of INDEX) {
+    if (rfc && String(r.rfc) !== rfc) continue;
+    const side = r[lang];
+    if (!side.length) continue;
+    let found = false;
+    for (const [se, sk, cost] of r.pairs) {
+      const mine = lang === "en" ? se : sk, theirs = lang === "en" ? sk : se;
+      if (mine.length && test(rx, mine.map(i => side[i]).join(" "))) {
+        const ok = r.kind === "para" && theirs.length && cost <= LOW;
+        hits.push({ r, level: ok ? "sentence" : "weak", mine, theirs });
+        found = true;
+      }
+    }
+    if (!found && test(rx, side.join(" "))) {
+      const level = r.kind === "orphan" || r.kind === "note" ? r.kind : "para";
+      hits.push({ r, level, mine: side.map((_, i) => i), theirs: r[other].map((_, i) => i) });
+    }
+  }
+  // 문장 짝 → 약한 짝 → 문단 → 짝 없음 → 역주. 같은 단계 안에서는 RFC와 절 순서 그대로(안정 정렬)
+  hits.sort((a, b) => ORDER.indexOf(a.level) - ORDER.indexOf(b.level));
+  return hits;
+}
+
+function render() {
+  const q = $("q").value.trim();
+  if (!INDEX) return;
+  const where = lang === "ko" ? "번역본(한국어)" : "원문(영어)";
+  $("mode").textContent = !q ? "" : fellBack
+    ? `${lang === "ko" ? "원문" : "번역본"}에는 없어 ${where}에서 찾았습니다`
+    : `${where}에서 찾는 중` + ($("lang").value === "auto" ? " · 한글이 있으면 번역본, 없으면 원문에서 찾습니다" : "");
+  if (!q) { $("list").innerHTML = ""; showHelp(); return; }
+  const rfcs = new Set(hits.map(h => h.r.rfc)).size;
+  $("list").innerHTML = `<div id="count">${hits.length}건 · RFC ${rfcs}개</div>` +
+    (hits.length ? "" : `<div class="item" style="cursor:default;color:var(--muted)">찾는 문구가 없습니다. 띄어쓰기나 철자를 바꾸거나, 언어를 직접 골라 보세요.</div>`);
+  $("detail").innerHTML = hits.length > 1 ? `<p class="empty">목록에서 결과를 고르세요. ↑↓ 키로 옮길 수 있습니다.</p>` : "";
+  more();
+}
+
+function more() {
+  const old = $("more"); if (old) old.remove();
+  const end = Math.min(hits.length, shown + PAGE);
+  let html = "";
+  for (let i = shown; i < end; i++) {
+    const h = hits[i], [name, cls] = LEVELS[h.level];
+    let text = h.mine.map(k => h.r[lang][k]).join(" ");
+    html += `<button class="item" data-i="${i}">
+      <div class="where"><b>RFC ${h.r.rfc}</b> ${esc(secLabel(h.r))} ${/^\d|^[A-Z]/.test(h.r.sec) ? esc(h.r.title_ko) : ""}<span class="badge ${cls}">${name}</span></div>
+      <div class="snip">${snippet(text)}</div></button>`;
+  }
+  $("list").insertAdjacentHTML("beforeend", html);
+  shown = end;
+  if (shown < hits.length) $("list").insertAdjacentHTML("beforeend", `<button id="more">${hits.length - shown}건 더 보기</button>`);
+  const m = $("more"); if (m) m.onclick = more;
+}
+
+// 목록에는 찾은 곳 앞뒤만 보인다
+function snippet(text) {
+  rx.lastIndex = 0;
+  const m = rx.exec(text);
+  if (m && text.length > 180) {
+    const start = Math.max(0, m.index - 60);
+    text = (start ? "…" : "") + text.slice(start, start + 180) + (start + 180 < text.length ? "…" : "");
+  }
+  return hl(text, rx);
+}
+
+function pick(i) {
+  if (i < 0 || i >= hits.length) return;
+  while (i >= shown) more();
+  sel = i;
+  for (const el of $("list").querySelectorAll(".item[data-i]")) el.toggleAttribute("aria-current", +el.dataset.i === i);
+  const cur = $("list").querySelector(`.item[data-i="${i}"]`);
+  if (cur) cur.scrollIntoView({ block: "nearest" });
+  const { r, level, mine, theirs } = hits[i];
+  const other = lang === "ko" ? "en" : "ko";
+  const a = mine.map(k => r[lang][k]).join(" ");
+  let b = theirs.map(k => r[other][k]).join(" ");
+  let warn = "";
+  if (level === "weak") { warn = "이 문장은 짝이 확실하지 않아, 짝이 되는 문단 전체를 함께 보여 줍니다."; b = r[other].join(" "); }
+  if (level === "para") warn = "찾은 문구가 문장 여럿에 걸쳐 있어 문단 전체를 보여 줍니다.";
+  if (level === "orphan") warn = "이 문단은 짝이 되는 " + NAME[other] + " 문단을 찾지 못했습니다(번역하지 않은 참고 문헌·명단 등).";
+  if (level === "note") warn = "번역자가 덧붙인 역주라 짝이 되는 원문이 없습니다.";
+  let html = `<div class="crumb">RFC ${r.rfc} · ${esc(secLabel(r))}
+      <a href="${linkEn(r)}" target="_blank" rel="noopener">원문 보기 ↗</a>
+      <a href="${linkKo(r)}">번역본 보기</a></div>
+    <h2>${esc(r.title_ko)} ${r.title_en && r.title_en !== r.title_ko ? `<small>${esc(r.title_en)}</small>` : ""}</h2>
+    ${warn ? `<div class="warn">${warn}</div>` : ""}
+    <div class="pairbox">
+      <div class="side" lang="${lang}"><div class="label">${NAME[lang]} · 찾은 문구</div><div class="text">${hl(a, rx)}</div></div>
+      ${b ? `<div class="side" lang="${other}"><div class="label">${NAME[other]}</div><div class="text">${esc(b)}</div></div>` : ""}
+    </div>`;
+  if ((level === "sentence" || level === "weak") && (r.en.length > 1 || r.ko.length > 1)) {
+    const col = (k, on) => r[k].map((s, j) => `<span class="${on.includes(j) ? "on" : ""}">${esc(s)}</span>`).join(" ");
+    html += `<div class="ctx"><h3>문단 전체</h3><div class="cols">
+      <p lang="${lang}">${col(lang, mine)}</p><p lang="${other}">${col(other, level === "sentence" ? theirs : [])}</p></div></div>`;
+  }
+  $("detail").innerHTML = html;
+}
+
+function showHelp() {
+  const ex = ["most highly preferred protocol", "멱등 메서드", "MUST NOT", "연결 프리페이스"];
+  $("detail").innerHTML = `<div class="empty">
+    <p>영어 원문이나 한국어 번역의 문구를 넣으면, 그 문구가 있는 RFC와 절, 짝이 되는 원문·번역 문장을 함께 보여 줍니다.</p>
+    <ul>
+      <li>한글이 있으면 번역본에서, 없으면 원문에서 찾습니다. 언어는 직접 고를 수도 있습니다.</li>
+      <li>원문은 문구에 대문자가 있을 때만 대소문자를 가립니다("MUST NOT"은 규범 키워드만).</li>
+      <li>번역본은 띄어쓰기 차이를 무시합니다.</li>
+      <li>"약한 짝"은 문장 짝이 확실하지 않아 문단 전체를 함께 보여 주는 결과입니다.</li>
+    </ul>
+    <p>예: ${ex.map(e => `<button data-q="${esc(e)}">${esc(e)}</button>`).join(" · ")}</p></div>`;
+  for (const b of $("detail").querySelectorAll("button[data-q]")) b.onclick = () => { $("q").value = b.dataset.q; search(); };
+}
+
+function syncUrl(q, rfc) {
+  const p = new URLSearchParams();
+  if (q.trim()) p.set("q", q.trim());
+  if ($("lang").value !== "auto") p.set("lang", $("lang").value);
+  if (rfc) p.set("rfc", rfc);
+  const s = p.toString();
+  history.replaceState(null, "", s ? "?" + s : location.pathname);
+}
+
+let timer;
+$("q").addEventListener("input", () => { clearTimeout(timer); timer = setTimeout(search, 150); });
+$("rfc").onchange = $("lang").onchange = search;
+$("list").addEventListener("click", e => {
+  const el = e.target.closest(".item[data-i]");
+  if (!el) return;
+  pick(+el.dataset.i);
+  // 좁은 화면에서는 결과가 목록 아래에 있으므로 그쪽으로 옮긴다
+  if (matchMedia("(max-width: 760px)").matches) $("detail").scrollIntoView({ block: "start" });
+});
+document.addEventListener("keydown", e => {
+  if (!hits.length || e.target === $("rfc") || e.target === $("lang")) return;
+  if (e.key === "ArrowDown") { e.preventDefault(); pick(Math.min(sel + 1, hits.length - 1)); }
+  if (e.key === "ArrowUp") { e.preventDefault(); pick(Math.max(sel - 1, 0)); }
+});
+
+$("mode").textContent = "색인을 불러오는 중…";
+fetch("search-index.json")
+  .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+  .then(d => {
+    LOW = d.low;
+    INDEX = d.r.map(([rfc, sec, head, title_ko, title_en, kind, en, ko, pairs]) =>
+      ({ rfc, sec, head, title_ko, title_en, kind, en, ko, pairs }));
+    for (const [n, title] of d.rfcs)
+      $("rfc").insertAdjacentHTML("beforeend", `<option value="${n}">RFC ${n} ${esc(title)}</option>`);
+    const p = new URLSearchParams(location.search);
+    if (p.get("lang")) $("lang").value = p.get("lang");
+    if (p.get("rfc")) $("rfc").value = p.get("rfc");
+    $("mode").textContent = "";
+    if (p.get("q")) { $("q").value = p.get("q"); search(); } else showHelp();
+  })
+  .catch(err => { $("mode").textContent = "색인을 불러오지 못했습니다(" + err.message + "). 잠시 뒤 다시 열어 보세요."; });
+</script>
+</body>
+</html>
