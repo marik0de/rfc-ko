@@ -32,7 +32,7 @@ RFC 2119에서 같은 단계로 묶인 키워드(예: SHOULD와 RECOMMENDED)는 
 
 소문자 must, should, may는 규범 키워드가 아니므로 일반 서술로 번역합니다.
 
-소문자 can과 could는 기본적으로 "\~할 수 있다"로 옮깁니다. 행위자가 주어이고 could나 might가 예시나 추측을 나타낼 때만 "\~할 수도 있다"로 씁니다. "\~할 수 있다"로 쓰면 명세가 그 행동을 허용한다는 뜻으로 읽히기 때문입니다. 예: "For example, an origin could indicate …" → "예를 들어 출처는 … 나타낼 수도 있다". 일이 주어인 가능성은 "\~할 수 있다"로 씁니다. 예: "this could lead to disagreement" → "판단이 어긋날 수 있다".
+소문자 can과 could는 기본적으로 "\~할 수 있다"로 옮깁니다. 행위자가 주어이고 could나 might가 예시나 추측을 나타낼 때만 "\~할 수도 있다"로 씁니다. "\~할 수 있다"로 쓰면 명세가 그 행동을 허용한다는 뜻으로 읽히기 때문입니다. 예: "For example, an origin could indicate …" → "예를 들어 출처는 … 나타낼 수도 있다". 일이 주어인 가능성은 "\~할 수 있다"로 씁니다. 예: "this could lead to disagreement" → "판단이 어긋날 수 있다". 이 사물 주어 규칙은 can·could에 적용하고, might는 주어와 관계없이 "\~할 수도 있다"도 씁니다.
 
 ### BCP 14 고정 문구
 
