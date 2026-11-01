@@ -446,6 +446,8 @@ RFC 8174 이전 문서처럼 문구가 다르면(예: "described in RFC 2119"로
 
 | 원어 | 번역어 | 비고 | 범위 |
 |---|---|---|---|
+| Application-Layer Protocol Negotiation (ALPN) Protocol IDs | ALPN 프로토콜 ID | RFC 7301이 만든 이름. RFC 8447이 앞에 TLS를 붙임(아래 TLS 이름 참고) | RFC 7301 |
+| ExtensionType Values | ExtensionType 값 | RFC 8447 이후 "TLS ExtensionType Values"(TLS ExtensionType 값, RFC 9846 11장) | RFC 7301 |
 | HTTP Content Coding Registry | HTTP 콘텐츠 코딩 레지스트리 | | RFC 9110 |
 | HTTP Method Registry | HTTP 메서드 레지스트리 | RFC 9113 11장의 표기. RFC 9110의 "Hypertext Transfer Protocol (HTTP) Method Registry"와 같은 레지스트리 | RFC 9113 |
 | HTTP Range Unit Registry | HTTP 범위 단위 레지스트리 | | RFC 9110 |
@@ -467,6 +469,7 @@ RFC 8174 이전 문서처럼 문구가 다르면(예: "described in RFC 2119"로
 | Provisional Message Header Field Names | 임시 메시지 헤더 필드 이름 | 상태 값 'provisional'은 원어 | RFC 9110 |
 | Service Name and Transport Protocol Port Number Registry | 서비스 이름 및 전송 프로토콜 포트 번호 레지스트리 | | RFC 9110 |
 | TLS Application-Layer Protocol Negotiation (ALPN) Protocol IDs | TLS ALPN 프로토콜 ID | | 공통 |
+| Transport Layer Security (TLS) Extensions | TLS 확장 | 레지스트리 묶음 제목. 약어 풀이가 붙은 이름이라 약어로 씀 | RFC 7301 |
 | Uniform Resource Identifier (URI) Schemes | URI 스킴 | | RFC 9110 |
 
 ## HTTP/2
@@ -776,6 +779,20 @@ RFC 9113 5.1절의 상태 전이 다이어그램은 번역하지 않으므로, �
 | vector | 벡터 | 1차원 배열. 목록(list)이라고도 부름(3.4절). 사전 확인(2026-10-25). | RFC 9846 |
 | version intolerance | 버전 불내성 | 높은 버전 번호의 `ClientHello`를 거부하는 서버 결함(4.2.2절). 두 사전 모두 없음(2026-10-25 조회). 번역자 결정(2026-10-26, 표기 유지). | RFC 9846 |
 | wall clock time | 정확한 표준시 | 8.3절. 번역자 결정(2026-10-26, "정확한 표준시(Wall-Clock Time)", 표기 확정). TTA(용어사전): 벽 시간. 정보통신기술용어해설 없음 | RFC 9846 |
+
+## TLS ALPN
+
+| 원어 | 번역어 | 비고 | 출처 |
+|---|---|---|---|
+| abbreviated handshake | 약식 핸드셰이크 | 세션 재개에 사용하는 약식 핸드셰이크. 인증서·키 교환 메시지를 생략한다(3.1절 그림 2). full handshake(전체 핸드셰이크) 참고. 두 사전에서 해당 항목을 확인하지 못함(2026-11-01 조회). 세션 재개 시 일부 교환 절차를 생략하는 의미를 반영. 번역자 결정(2026-11-01, 표기 확정). | RFC 7301 |
+| Application-Layer Protocol Negotiation (ALPN) | 애플리케이션 계층 프로토콜 협상(ALPN) | 문서 제목과 장 제목에서만 풀어 쓰고 본문은 ALPN. 두 사전에서 해당 항목을 확인하지 못함(2026-11-01 조회). application(애플리케이션), negotiation(협상) 조합 | RFC 7301 |
+| differentiated service | 차등 서비스 | 4장. 애플리케이션 프로토콜에 따라 연결에 서로 다른 서비스를 제공한다는 문맥에 맞춤. 정보통신기술용어해설 표기(DiffServ, no=769) 참고. 특정 DiffServ 기술로 한정하지 않음. TTA: 차등화 서비스 | RFC 7301 |
+| encapsulation | 캡슐화 | 1장. 두 사전 같음(정보통신기술용어해설 no=1606) | RFC 7301 |
+| Identification Sequence | 식별 시퀀스 | ALPN 레지스트리 항목 이름(6장). 항목 이름은 번역해 원어 병기, 등록 값은 원문 그대로. rfc9114 11.1절과 같음 | RFC 7301 |
+| network element | 네트워크 요소 | 4장. 연결 경로 위의 장비. TTA의 망 요소와 정보통신기술용어해설의 NE(망 장비, 통신망 요소, no=3467)를 참고하되, 원문의 포괄적 의미와 본문의 network(네트워크) 표기 통일을 고려함. 번역자 결정(2026-11-01, 표기 확정). | RFC 7301 |
+| preference order | 선호 순서 | 3.2절. "in descending order of preference"는 선호도가 높은 것부터 차례로(3.1절) | RFC 7301 |
+| profiling | 프로파일링 | 5장. 개인 식별 정보로 사용자를 추적·분석하는 것. 정보통신기술용어해설에서 해당 항목을 확인하지 못함, TTA는 데이터 프로파일링(다른 개념)만(2026-11-01 조회). 번역자 결정(2026-11-01, 표기 확정). | RFC 7301 |
+| protocol identifier | 프로토콜 식별자 | ALPN 레지스트리에 등록하는, 애플리케이션 프로토콜을 식별하는 바이트 문자열(5장). TTA 표기 참고. 정보통신기술용어해설의 Protocol ID(no=1899)는 IP 헤더의 프로토콜 번호라 구별함 | RFC 7301 |
 
 ## 원어 그대로 두는 것
 

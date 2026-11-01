@@ -8,4 +8,5 @@
 | RFC 9112 | txt | HTTP/1.1 | 2026-10-17 | https://www.rfc-editor.org/rfc/rfc9112.txt |
 | RFC 9110 | txt | HTTP Semantics | 2026-10-17 | https://www.rfc-editor.org/rfc/rfc9110.txt |
 | RFC 8174 | txt | Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words | 2026-10-17 | https://www.rfc-editor.org/rfc/rfc8174.txt |
+| RFC 7301 | txt | Transport Layer Security (TLS) Application-Layer Protocol Negotiation Extension | 2026-11-01 | https://www.rfc-editor.org/rfc/rfc7301.txt |
 | RFC 2119 | txt | Key words for use in RFCs to Indicate Requirement Levels | 2026-10-17 | https://www.rfc-editor.org/rfc/rfc2119.txt |
