@@ -4,7 +4,7 @@ IETF RFC 문서의 한국어 번역입니다. HTTP 의미론(RFC 9110), HTTP/1.1
 
 웹에서 읽기: <https://marik0de.github.io/rfc-ko/>
 
-번역 찾기: <https://marik0de.github.io/rfc-ko/search.html> — 영어 원문이나 한국어 번역 문구로 RFC를 찾아, 짝이 되는 원문·번역 문장을 함께 봅니다.
+번역 찾기: <https://marik0de.github.io/rfc-ko/search/> — 영어 원문이나 한국어 번역 문구로 RFC를 찾아, 짝이 되는 원문·번역 문장을 함께 봅니다.
 
 ## 번역 목록
 
