@@ -794,6 +794,20 @@ RFC 9113 5.1절의 상태 전이 다이어그램은 번역하지 않으므로, �
 | profiling | 프로파일링 | 5장. 개인 식별 정보로 사용자를 추적·분석하는 것. 정보통신기술용어해설에서 해당 항목을 확인하지 못함, TTA는 데이터 프로파일링(다른 개념)만(2026-11-01 조회). 번역자 결정(2026-11-01, 표기 확정). | RFC 7301 |
 | protocol identifier | 프로토콜 식별자 | ALPN 레지스트리에 등록하는, 애플리케이션 프로토콜을 식별하는 바이트 문자열(5장). TTA 표기 참고. 정보통신기술용어해설의 Protocol ID(no=1899)는 IP 헤더의 프로토콜 번호라 구별함 | RFC 7301 |
 
+## HTTP/2 웹소켓
+
+| 원어 | 번역어 | 비고 | 출처 |
+|---|---|---|---|
+| WebSocket(s), WebSocket Protocol | 웹소켓, 웹소켓 프로토콜 | TTA 표기(웹소켓). 정보통신기술용어해설에서 해당 항목을 확인하지 못함(2026-11-12 조회). 헤더 필드 이름(`Sec-WebSocket-Key`)·등록 값("websocket", "The Web Socket Protocol")·참고 문헌 제목은 원어. 번역자 결정(2026-11-12, 표기 확정) | RFC 8441 |
+| bootstrap (WebSockets) | 부트스트랩하다 | HTTP/2의 연결 수립 절차(확장 CONNECT)로 웹소켓 연결을 맺는다는 뜻(제목, 1장, 5장). 두 사전의 부트스트랩(TTA, 정보통신기술용어해설 no=2658)은 부팅·부트 로더 뜻이지만 이 문서에서는 연결을 맺는 뜻으로 씀(역주 없음). initiate(시작하다)와 구분. bootstrapping handshake는 부트스트랩 핸드셰이크(8장). 번역자 결정(2026-11-13) | RFC 8441 |
+| opening handshake | 시작 핸드셰이크 | RFC 6455의 연결을 여는 HTTP 교환(1장, 5장). 두 사전에서 해당 항목을 확인하지 못함(2026-11-12 조회). 번역자 결정(2026-11-13) | RFC 8441 |
+| extended CONNECT | 확장 CONNECT | `:protocol` 의사 헤더 필드를 쓰는 `CONNECT`(4장). RFC 9113 8.6절 번역과 같음 | RFC 8441 |
+| forward proxy | 포워드 프록시 | 7장. 정보통신기술용어해설 Proxy 항목(no=1829) 본문 표기. TTA에서 해당 항목을 확인하지 못함(2026-11-12 조회) | RFC 8441 |
+| proxy autoconfiguration | 프록시 자동 구성 | 5장. configuration(구성) 표기에 맞춤 | RFC 8441 |
+| opt-in negotiation | 사용 동의 협상 | 3장. 양쪽이 확장을 쓰겠다고 밝혀야 함. 원어 병기. 번역자 결정(2026-11-13) | RFC 8441 |
+| connection specific (pseudo-header field use) | 연결에 종속되다 | 8장 "의사 헤더 필드의 사용은 연결에 종속되며". 헤더 필드 이름인 connection-specific header field(연결 전용 헤더 필드)와 다른 문맥. 번역자 결정(2026-11-13) | RFC 8441 |
+| SETTINGS parameter | `SETTINGS` 매개 변수 | 3장. 절 제목은 코드 서식 없이 "SETTINGS 매개 변수". 번역자 결정(2026-11-13) | RFC 8441 |
+
 ## 원어 그대로 두는 것
 
 번역하지 않고 코드 서식(`` ` ``)으로 표기합니다.

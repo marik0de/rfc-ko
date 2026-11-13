@@ -1,6 +1,6 @@
 # rfc-ko
 
-IETF RFC 문서의 한국어 번역입니다. HTTP 의미론(RFC 9110), HTTP/1.1(RFC 9112), HTTP/2(RFC 9113), HTTP/3(RFC 9114), TLS 1.3(RFC 9846), TLS 애플리케이션 계층 프로토콜 협상 확장(RFC 7301)과 요구 수준 키워드(BCP 14)를 옮겼습니다.
+IETF RFC 문서의 한국어 번역입니다. HTTP 의미론(RFC 9110), HTTP/1.1(RFC 9112), HTTP/2(RFC 9113), HTTP/3(RFC 9114), TLS 1.3(RFC 9846), TLS 애플리케이션 계층 프로토콜 협상 확장(RFC 7301), HTTP/2로 웹소켓 부트스트랩하기(RFC 8441)와 요구 수준 키워드(BCP 14)를 옮겼습니다.
 
 웹에서 읽기: <https://marik0de.github.io/rfc-ko/>
 
@@ -15,6 +15,7 @@ IETF RFC 문서의 한국어 번역입니다. HTTP 의미론(RFC 9110), HTTP/1.1
 | [9113](https://www.rfc-editor.org/rfc/rfc9113) | HTTP/2 | [rfc9113.md](translated/rfc9113.md) | 전체 초안 |
 | [9112](https://www.rfc-editor.org/rfc/rfc9112) | HTTP/1.1 | [rfc9112.md](translated/rfc9112.md) | 전체 초안. RFC 9931에서 일부 갱신됨 |
 | [9110](https://www.rfc-editor.org/rfc/rfc9110) | HTTP Semantics | [rfc9110.md](translated/rfc9110.md) | 전체 번역, 검토 완료 |
+| [8441](https://www.rfc-editor.org/rfc/rfc8441) | Bootstrapping WebSockets with HTTP/2 | [rfc8441.md](translated/rfc8441.md) | 전체 초안. RFC 6455를 갱신함 |
 | [8174](https://www.rfc-editor.org/rfc/rfc8174) | Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words | [rfc8174.md](translated/rfc8174.md) | BCP 14. 초안 |
 | [7301](https://www.rfc-editor.org/rfc/rfc7301) | Transport Layer Security (TLS) Application-Layer Protocol Negotiation Extension | [rfc7301.md](translated/rfc7301.md) | 전체 초안. RFC 8447에서 일부 갱신됨 |
 | [2119](https://www.rfc-editor.org/rfc/rfc2119) | Key words for use in RFCs to Indicate Requirement Levels | [rfc2119.md](translated/rfc2119.md) | BCP 14, RFC 8174로 갱신됨. 초안 |
